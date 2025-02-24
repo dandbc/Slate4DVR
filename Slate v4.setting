@@ -1,0 +1,528 @@
+{
+	Tools = ordered() {
+		Slatev4 = GroupOperator {
+			CtrlWZoom = false,
+			CustomData = {
+				Path = {
+					Map = {
+						["Setting:"] = "Templates:/Slate v4.drfx/Edit/Generators/DanDBC/Slates/"
+					}
+				},
+			},
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "ShowTitle",
+				},
+				Input2 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "EporReel",
+					Name = "Episode or Reel",
+					Default = 0,
+				},
+				Input3 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "EpReelNo",
+					Name = "Episode or Reel #",
+					Default = 101,
+				},
+				Input4 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "CutVersion",
+					Default = 1,
+				},
+				Input5 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "d",
+				},
+				Input6 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "TapeDuration",
+				},
+				Dropdown = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "VersionControl",
+					Default = 0,
+				},
+				Input7 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "Color",
+				},
+				Input8 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "VFX",
+				},
+				Input9 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "MUSIC",
+				},
+				Input10 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "SOUND",
+				},
+				Input11 = InstanceInput {
+					SourceOp = "CustomTool1",
+					Source = "TITLES",
+				}
+			},
+			Outputs = {
+				MainOutput1 = InstanceOutput {
+					SourceOp = "Merge8",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 605.333, 56.1667 },
+				Flags = {
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true
+				},
+				Size = { 1171, 198.364, 585.5, 24.2424 },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { 0, 0 }
+			},
+			Tools = ordered() {
+				Merge1 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "showTitle",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "epCut",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { -358, 74.7574 } },
+				},
+				epCut = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.5, 0.616379310344828 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input {
+							Value = "EP 101",
+							Expression = "Text(\n    iif(CustomTool1.EporReel == 0, \"EP \", \"REEL \") ..\n    CustomTool1.EpReelNo .. \"-\" ..\n    iif(CustomTool1.CutVersion == 0, \"ASSEMBLY\", \n        iif(CustomTool1.CutVersion == 1, \"LOCKED\", \n            iif(CustomTool1.CutVersion == 2, \"EDITORS CUT\", \n                iif(CustomTool1.CutVersion == 3, \"DIRECTORS CUT\", \n                    iif(CustomTool1.CutVersion == 4, \"ROUGH CUT\", \n                        iif(CustomTool1.CutVersion == 5, \"FINE CUT\", \n                            iif(CustomTool1.CutVersion == 6, \"TRAILER\", \n                                iif(CustomTool1.CutVersion == 7, \"TEASER\", \" \")\n                            )\n                        )\n                    )\n                )\n            )\n        )\n    )\n)\n",
+						},
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.1, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						cutType = Input { Value = "LOCKED", },
+						epNumber = Input { Value = "EP101", }
+					},
+					ViewInfo = OperatorInfo { Pos = { -358, 8.75737 } },
+					UserControls = ordered() { cutType = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Cut", }, epNumber = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Episode/Reel #", } }
+				},
+				showTitle = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.5, 0.723085460599334 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "string.upper(CustomTool1.ShowTitle.Value)", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.1, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						showTitle = Input { Value = "Show Title", }
+					},
+					ViewInfo = OperatorInfo { Pos = { -523, 74.7574 } },
+					UserControls = ordered() { showTitle = { TEC_ReadOnly = false, LINKS_Name = "Show Title", ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, TEC_Wrap = false, } }
+				},
+				date = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.5, 0.41842397336293 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "string.upper(\"date: \") .. string.upper(CustomTool1.d.Value)", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						date = Input { Value = "00/00/00", }
+					},
+					ViewInfo = OperatorInfo { Pos = { -193, 8.75737 } },
+					UserControls = ordered() { date = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "date", } }
+				},
+				Merge2 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "date",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { -193, 74.7574 } },
+				},
+				tapeTime = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.5, 0.335183129855716 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "string.upper(\"trt: \") .. string.upper(CustomTool1.TapeDuration.Value)", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						tapeDuration = Input { Value = "00:00:00:00", }
+					},
+					ViewInfo = OperatorInfo { Pos = { -83, 8.75737 } },
+					UserControls = ordered() { tapeDuration = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "tapeDuration", } }
+				},
+				Merge3 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge2",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "tapeTime",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { -83, 74.7574 } },
+				},
+				CustomTool1 = Custom {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						["Ep_Reel#"] = Input { Value = 101, },
+						LUTIn1 = Input {
+							SourceOp = "CustomTool1LUTIn1",
+							Source = "Value",
+						},
+						LUTIn2 = Input {
+							SourceOp = "CustomTool1LUTIn2",
+							Source = "Value",
+						},
+						LUTIn3 = Input {
+							SourceOp = "CustomTool1LUTIn3",
+							Source = "Value",
+						},
+						LUTIn4 = Input {
+							SourceOp = "CustomTool1LUTIn4",
+							Source = "Value",
+						},
+						ShowTitle = Input { Value = "Show Title", },
+						CutVersion = Input { Value = 1, },
+						d = Input { Value = "YYYY/MM/DD", },
+						TapeDuration = Input { Value = "HH:MM:SS:FF", },
+						VersionControl = Input { Value = 1, }
+					},
+					ViewInfo = OperatorInfo { Pos = { -28, 140.758 } },
+					UserControls = ordered() { ShowTitle = { TEC_ReadOnly = false, LINKID_DataType = "Text", LINKS_Name = "Show Title", INPID_InputControl = "TextEditControl", TEC_Lines = 1, TEC_Wrap = true, }, EporReel = { { MBTNC_AddButton = "Episode" }, { MBTNC_AddButton = "Reel" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "Ep or Reel", }, EpReelNo = { INP_MaxAllowed = 100000, INP_Integer = false, INPID_InputControl = "SliderControl", IC_Steps = 1, INP_MaxScale = 100, INP_Default = 101, INP_MinScale = 1, INP_MinAllowed = 1, LINKID_DataType = "Number", ICD_Center = 50, LINKS_Name = "Ep Reel No", }, CutVersion = { { CCS_AddString = "ASSEMBLY" }, { CCS_AddString = "LOCKED" }, { CCS_AddString = "EDITORS CUT" }, { CCS_AddString = "DIRECTORS CUT" }, { CCS_AddString = "ROUGH CUT" }, { CCS_AddString = "FINE CUT" }, { CCS_AddString = "TRAILER" }, { CCS_AddString = "TEASER" }, INP_Integer = false, LINKID_DataType = "Number", CC_LabelPosition = "Horizontal", INPID_InputControl = "ComboControl", LINKS_Name = "Cut Version", }, d = { TEC_ReadOnly = false, LINKID_DataType = "Text", LINKS_Name = "Date", INPID_InputControl = "TextEditControl", TEC_Lines = 1, TEC_Wrap = true, }, TapeDuration = { TEC_ReadOnly = false, LINKID_DataType = "Text", LINKS_Name = "Tape Duration", INPID_InputControl = "TextEditControl", TEC_Lines = 1, TEC_Wrap = true, }, VersionControl = { INP_MaxAllowed = 1000000, INP_Integer = false, LBLC_DropDownButton = true, INPID_InputControl = "LabelControl", LBLC_NumInputs = 5, INP_MaxScale = 1, INP_Default = 0, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", INP_Passive = true, LINKS_Name = "Status Notes", }, Color = { { MBTNC_AddButton = "TEMP" }, { MBTNC_AddButton = "NO" }, { MBTNC_AddButton = "FINAL" }, { MBTNC_AddButton = "ALT" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "COLOR", }, VFX = { { MBTNC_AddButton = "TEMP" }, { MBTNC_AddButton = "NO" }, { MBTNC_AddButton = "FINAL" }, { MBTNC_AddButton = "ALT" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "VFX", }, MUSIC = { { MBTNC_AddButton = "TEMP" }, { MBTNC_AddButton = "NO" }, { MBTNC_AddButton = "FINAL" }, { MBTNC_AddButton = "ALT" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "MUSIC", }, SOUND = { { MBTNC_AddButton = "TEMP" }, { MBTNC_AddButton = "NO" }, { MBTNC_AddButton = "FINAL" }, { MBTNC_AddButton = "ALT" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "SOUND", }, TITLES = { { MBTNC_AddButton = "TEMP" }, { MBTNC_AddButton = "NO" }, { MBTNC_AddButton = "FINAL" }, { MBTNC_AddButton = "ALT" }, INP_MaxAllowed = 1000000, INP_Integer = false, INPID_InputControl = "MultiButtonControl", MBTNC_ShowBasicButton = true, INP_MaxScale = 1, INP_MinScale = 0, INP_MinAllowed = -1000000, LINKID_DataType = "Number", MBTNC_ShowName = false, MBTNC_StretchToFit = false, MBTNC_ShowToolTip = false, LINKS_Name = "TITLES", } }
+				},
+				CustomTool1LUTIn1 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333 }, Flags = { Linear = true } },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667 }, Flags = { Linear = true } }
+						}
+					},
+					SplineColor = { Red = 204, Green = 0, Blue = 0 },
+					CtrlWZoom = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+				},
+				CustomTool1LUTIn2 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333 }, Flags = { Linear = true } },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667 }, Flags = { Linear = true } }
+						}
+					},
+					SplineColor = { Red = 0, Green = 204, Blue = 0 },
+					CtrlWZoom = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+				},
+				CustomTool1LUTIn3 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333 }, Flags = { Linear = true } },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667 }, Flags = { Linear = true } }
+						}
+					},
+					SplineColor = { Red = 0, Green = 0, Blue = 204 },
+					CtrlWZoom = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+				},
+				CustomTool1LUTIn4 = LUTBezier {
+					KeyColorSplines = {
+						[0] = {
+							[0] = { 0, RH = { 0.333333333333333, 0.333333333333333 }, Flags = { Linear = true } },
+							[1] = { 1, LH = { 0.666666666666667, 0.666666666666667 }, Flags = { Linear = true } }
+						}
+					},
+					SplineColor = { Red = 204, Green = 204, Blue = 204 },
+					CtrlWZoom = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+				},
+				Merge4 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge3",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Color",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 82, 74.7574 } },
+				},
+				Color = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.06, 0.16 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "Text(iif(CustomTool1.Color == 0, \"TEMP\", iif(CustomTool1.Color == 1, \"NO\", iif(CustomTool1.Color == 2, \"FINAL\", iif(CustomTool1.Color == 3, \"ALT\", \" \")))) .. \" COLOR\")", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.05, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						colorStauts = Input { Value = "TEMP", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 82, 8.75737 } },
+					UserControls = ordered() { colorStauts = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Color Status", } }
+				},
+				VFX = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.06, 0.09 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "Text(iif(CustomTool1.VFX == 0, \"TEMP\", iif(CustomTool1.VFX == 1, \"NO\", iif(CustomTool1.VFX == 2, \"FINAL\", iif(CustomTool1.VFX == 3, \"ALT\", \" \")))) .. \" VFX\")", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.05, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						vfxStatus = Input { Value = "TEMP", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 165, 49.4998 } },
+					UserControls = ordered() { vfxStatus = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "VFX Status", } }
+				},
+				Merge5 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge4",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "VFX",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 192, 74.7574 } },
+				},
+				Music = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.4, 0.16 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "Text(iif(CustomTool1.MUSIC == 0, \"TEMP\", iif(CustomTool1.MUSIC == 1, \"NO\", iif(CustomTool1.MUSIC == 2, \"FINAL\", iif(CustomTool1.MUSIC == 3, \"ALT\", \" \")))) .. \" MUSIC\")", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.05, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						MusicStatus = Input { Value = "TEMP", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 302, 8.75737 } },
+					UserControls = ordered() { MusicStatus = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Music Status", } }
+				},
+				Merge6 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge5",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Music",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 302, 74.7574 } },
+				},
+				Merge7 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge6",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Sound",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 412, 74.7574 } },
+				},
+				Sound = TextPlus {
+					CtrlWZoom = false,
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.4, 0.09 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "Text(iif(CustomTool1.SOUND == 0, \"TEMP\", iif(CustomTool1.SOUND == 1, \"NO\", iif(CustomTool1.SOUND == 2, \"FINAL\", iif(CustomTool1.SOUND == 3, \"ALT\", \" \")))) .. \" SOUND\")", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.05, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						AudioStatus = Input { Value = "TEMP", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 412, 8.75737 } },
+					UserControls = ordered() { AudioStatus = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Audio Status", } }
+				},
+				Merge8 = Merge {
+					CtrlWShown = false,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						Background = Input {
+							SourceOp = "Merge7",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Titles",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, }
+					},
+					ViewInfo = OperatorInfo { Pos = { 522, 74.7574 } },
+				},
+				Titles = TextPlus {
+					CtrlWShown = false,
+					NameSet = true,
+					CustomData = { Path = { Map = { ["Setting:"] = "Settings:\\" } } },
+					Inputs = {
+						GlobalOut = Input { Value = 119, },
+						Width = Input { Value = 1920, },
+						Height = Input { Value = 1080, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						["Gamut.SLogVersion"] = Input { Value = FuID { "SLog2" }, },
+						Center = Input { Value = { 0.706704125615764, 0.16 }, },
+						LayoutRotation = Input { Value = 1, },
+						TransformRotation = Input { Value = 1, },
+						Softness1 = Input { Value = 1, },
+						StyledText = Input { Expression = "Text(iif(CustomTool1.TITLES == 0, \"TEMP\", iif(CustomTool1.TITLES == 1, \"NO\", iif(CustomTool1.TITLES == 2, \"FINAL\", iif(CustomTool1.TITLES == 3, \"ALT\", \" \")))) .. \" TITLES\")", },
+						Font = Input { Value = "Open Sans", },
+						Style = Input { Value = "SemiBold", },
+						Size = Input { Value = 0.05, },
+						VerticalJustificationNew = Input { Value = 3, },
+						HorizontalLeftCenterRight = Input { Value = -1, },
+						HorizontalJustificationNew = Input { Value = 3, },
+						TitlesStatus = Input { Value = "TEMP", }
+					},
+					ViewInfo = OperatorInfo { Pos = { 522, 8.75737 } },
+					UserControls = ordered() { TitlesStatus = { TEC_ReadOnly = false, TEC_Wrap = true, ICS_ControlPage = "Text", LINKID_DataType = "Text", INPID_InputControl = "TextEditControl", TEC_Lines = 1, LINKS_Name = "Titles Status", } }
+				}
+			},
+		}
+	},
+	ActiveTool = "Slatev4"
+}
